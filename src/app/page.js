@@ -1,3 +1,4 @@
+import Nav from "./components/Nav";
 
 export default function Home() {
   return (
@@ -6,7 +7,10 @@ export default function Home() {
     <>
       
 
-      <h2>app</h2>
+
+    <Nav/>
+
+      
     </>
   )
 }
