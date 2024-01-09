@@ -15,6 +15,7 @@ const initialTask = [
 const App = () => {
   const [tasks, setTasks] = useState(initialTask);
   console.log(tasks);
+  const taskIds = tasks.map((task) => task.id);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = [...list];
@@ -37,7 +38,7 @@ const App = () => {
           return;
         }
         setTasks((prevTasks) => {
-          reorder(prevTasks, source.index, destination.index);
+          return reorder(prevTasks, source.index, destination.index);
         });
       }}
     >
@@ -49,24 +50,25 @@ const App = () => {
               {...droppableProvider.droppableProps}
               ref={droppableProvider.innerRef}
             >
-              {tasks.map((task, index) => (
-                <Draggable
-                  index={index}
-                  key={index}
-                  draggableId={task.id.toLocaleString()}
-                >
-                  {(provided) => (
-                    <li
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      key={task.id}
-                    >
-                      {task.task}
-                    </li>
-                  )}
-                </Draggable>
-              ))}
+              {tasks &&
+                tasks.map((task, index) => (
+                  <Draggable
+                    index={taskIds.indexOf(task.id)}
+                    key={task.id}
+                    draggableId={task.id.toLocaleString()}
+                  >
+                    {(provided) => (
+                      <li
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        key={task.id}
+                      >
+                        {task.task}
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
               {droppableProvider.placeholder}
             </ul>
           )}
