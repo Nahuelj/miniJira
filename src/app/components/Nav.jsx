@@ -22,8 +22,8 @@ const Nav = () => {
 
   return (
     <div className="">
-      <Sidebar backgroundColor="#F7F7F7" className="  h-screen">
-        <div className="flex justify-center gap-2 max-w-52 mx-auto mt-2">
+      <Sidebar backgroundColor="#F7F7F7" className=" h-screen">
+        <div className="flex items-center mt-5 justify-center  gap-2 max-w-52 mx-auto ">
           <div>
             <Image className="w-20 h-20 rounded-full" src={noAvatar} />
             <p className="text-center">Admin</p>
