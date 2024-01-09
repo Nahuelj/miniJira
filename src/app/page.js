@@ -1,3 +1,4 @@
+import KanbanBoard from "./components/KanbanBoard";
 
 export default function Home() {
   return (
@@ -7,6 +8,9 @@ export default function Home() {
       
 
       <h2>app</h2>
+
+
+      <KanbanBoard/>
     </>
   )
 }
