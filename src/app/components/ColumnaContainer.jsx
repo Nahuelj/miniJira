@@ -103,16 +103,16 @@ const ColumnaContainer = (props) => {
       </div>
 
       <div className="flex text-white flex-col flex-grow gap-4 p-2 overflow-x-hidden overflow-y-auto">
-        <SortableContext items={tasksIds}>
-          {tasks.map((task) => (
-            <TaskCard
-              key={task.id}
-              deleteTask={deleteTask}
-              task={task}
-              updateTask={updateTask}
-            />
-          ))}
-        </SortableContext>
+      <SortableContext items={tasks.map((task) => task.id)}>
+    {tasks.map((task) => (
+      <TaskCard
+        key={task.id}
+        task={task}
+        deleteTask={deleteTask}
+        updateTask={updateTask}
+      />
+    ))}
+  </SortableContext>
       </div>
 
       <button

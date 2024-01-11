@@ -39,11 +39,17 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
     setEditMode((prev) => !prev);
     setMouseIsOver(false);
   };
-
+const confirmDeleteTask = () => {
+    const isConfirmed = window.confirm("¿Estás seguro de eliminar esta tarea?");
+    if (isConfirmed) {
+      deleteTask(task.id);
+    }
+  };
 
 
 
   if (editmode) {
+    
     return (
       <>
         <div ref={setNodeRef} style={style}
@@ -100,7 +106,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
       {mouseIsOver && (
         <button
           onClick={() => {
-            deleteTask(task.id);
+            confirmDeleteTask(task.id)
           }}
           className="stroke-white absolute  right-4 top-1/2 -translate-y-1/2 p-2 rounded"
         >

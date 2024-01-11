@@ -132,31 +132,7 @@ const KanbanBoard = () => {
 
   }
 
-  function onDragEnd(event) {
-    setActiveColumn(null)
-    setActiveTask(null)
 
-    const { active, over } = event;
-
-    if (!over) return;
-
-    const activeColumnId = active.id;
-    const overColumnId = over.id;
-
-    if (activeColumnId === overColumnId) return;
-
-    setcolumns((columns) => {
-      const activeColumnIndex = columns.findIndex(
-        (col) => col.id === activeColumnId
-      );
-
-      const overColumnIndex = columns.findIndex(
-        (col) => col.id === overColumnId
-      );
-
-      return arrayMove(columns, activeColumnIndex, overColumnIndex);
-    });
-  }
 
   function updateColumn(id, title) {
     const newColumns = columns.map((col) => {
@@ -177,6 +153,8 @@ const KanbanBoard = () => {
   }
 
   // eliminar tasks
+
+  
 
   function deleteTask(id){
 
@@ -203,6 +181,42 @@ const KanbanBoard = () => {
      setTasks(newTasks)
   }
 
+  function onDragEnd(event) {
+    setActiveColumn(null);
+    setActiveTask(null);
+  
+    const { active, over } = event;
+  
+    if (!over) return;
+  
+    const activeId = active.id;
+    const overId = over.id;
+  
+    if (activeId === overId) return;
+  
+    if (active.data.current?.type === "Column") {
+      // Lógica para arrastrar columnas
+      setcolumns((columns) => {
+        const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
+        const overColumnIndex = columns.findIndex((col) => col.id === overId);
+  
+        return arrayMove(columns, activeColumnIndex, overColumnIndex);
+      });
+    }
+  
+    if (active.data.current?.type === "Task") {
+      // Lógica para arrastrar tareas
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const overIndex = tasks.findIndex((t) => t.id === overId);
+  
+        tasks[activeIndex].columnId = overId;
+  
+        return arrayMove(tasks, activeIndex, overIndex);
+      });
+    }
+  }
+  
   function ondragover(event) {
     const { active, over } = event;
   
@@ -215,28 +229,34 @@ const KanbanBoard = () => {
   
     const isActiveTask = active.data.current?.type === "Task";
     const isOverTask = over.data.current?.type === "Task";
+    const isOverColumn = over.data.current?.type === "Column";
   
-    if (!isActiveTask || !isOverTask) return;
-  
-    const activeTask = tasks.find((t) => t.id === activeId);
-    const overTask = tasks.find((t) => t.id === overId);
-  
-    if (!activeTask || !overTask) return;
-  
-    if (activeTask.columnId !== overTask.columnId) {
-      const updatedTasks = tasks.map((task) => {
-        if (task.id === activeTask.id) {
-          return { ...task, columnId: overTask.columnId };
-        }
-        return task;
+    if (isActiveTask && isOverTask) {
+      // Lógica para arrastrar tareas dentro de la misma columna
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const overIndex = tasks.findIndex((t) => t.id === overId);
+    
+        return arrayMove(tasks, activeIndex, overIndex);
       });
-  
-      setTasks(updatedTasks);
     }
+    
+    if (isActiveTask && isOverColumn) {
+      // Lógica para arrastrar tareas a una columna diferente
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const overColumnId = overId;
+    
+        // Actualiza la columna de la tarea a la columna de destino
+        tasks[activeIndex].columnId = overColumnId;
+    
+        return tasks;
+      });
+    }
+
 
     
   }
-
 
 
 
