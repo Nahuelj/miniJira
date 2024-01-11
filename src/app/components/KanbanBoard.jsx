@@ -34,7 +34,7 @@ const KanbanBoard = () => {
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
   return (
-    <div className="m-auto flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
+    <div className="m-auto  flex min-h-screen w-full items-center overflow-x-auto overflow-y-hidden px-[40px]">
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
@@ -42,7 +42,7 @@ const KanbanBoard = () => {
         onDragOver={ondragover}
         
       >
-        <div className="mx-auto flex gap-2">
+        <div className="mx-auto   flex-wrap flex gap-2">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
               {columns.map((column) => (
