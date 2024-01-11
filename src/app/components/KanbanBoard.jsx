@@ -29,13 +29,7 @@ const KanbanBoard = () => {
     })
   );
 
-  const numbers = [1, 2, 3, 4];
 
-  const newNumbers = numbers.map((n) => {
-    return n + 1;
-  });
-
-  console.log(newNumbers);
 
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
@@ -154,7 +148,6 @@ const KanbanBoard = () => {
 
   // eliminar tasks
 
-  
 
   function deleteTask(id){
 
@@ -181,6 +174,7 @@ const KanbanBoard = () => {
      setTasks(newTasks)
   }
 
+  
   function onDragEnd(event) {
     setActiveColumn(null);
     setActiveTask(null);
