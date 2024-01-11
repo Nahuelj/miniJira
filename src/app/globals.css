@@ -8,3 +8,16 @@ body {
  box-sizing: border-box;
  padding: 0;
 }
+
+
+::-webkit-scrollbar{
+    width: 4px;
+}
+
+::-webkit-scrollbar:horizontal{
+height: 12px;
+}
+
+::-webkit-scrollbar-thumb{
+    @apply bg-slate-500 rounded-xl
+}

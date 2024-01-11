@@ -12,11 +12,15 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
+import TaskCard from "./TaskCard";
 
 const KanbanBoard = () => {
   const [columns, setcolumns] = useState([]);
   const [activeColumn, setActiveColumn] = useState(null);
 
+  const [tasks, setTasks] = useState([]);
+
+ const [activeTask, setActiveTask] = useState(null)
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -25,10 +29,13 @@ const KanbanBoard = () => {
     })
   );
 
+  const numbers = [1, 2, 3, 4];
 
-  
+  const newNumbers = numbers.map((n) => {
+    return n + 1;
+  });
 
-
+  console.log(newNumbers);
 
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
@@ -38,12 +45,24 @@ const KanbanBoard = () => {
         sensors={sensors}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
+        onDragOver={ondragover}
+        
       >
         <div className="mx-auto flex gap-2">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
               {columns.map((column) => (
-                <ColumnaContainer deleteColumn={deleteColumn} column={column} />
+                <ColumnaContainer
+                  key={column.id}
+                  deleteColumn={deleteColumn}
+                  column={column}
+                  updateColumn={updateColumn}
+                  createTask={createTask}
+                  tasks={tasks.filter((task) => task.columnId === column.id)}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
+
+                />
               ))}
             </SortableContext>
           </div>
@@ -62,10 +81,20 @@ const KanbanBoard = () => {
               <ColumnaContainer
                 column={activeColumn}
                 deleteColumn={deleteColumn}
+                updateColumn={updateColumn}
+                createTask={createTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+                tasks={tasks.filter((task) => task.columnId === activeColumn.id)}
+                
+              
               />
             )}
-          </DragOverlay>,document.body
-          
+
+       
+{activeTask && <TaskCard task={activeTask} deleteTask={deleteTask} updateTask={updateTask} /> }
+          </DragOverlay>,
+          document.body
         )}
       </DndContext>
     </div>
@@ -90,9 +119,23 @@ const KanbanBoard = () => {
       setActiveColumn(event.active.data.current.column);
       return;
     }
+
+    if (event.active.data.current?.type === "Task") {
+      setActiveTask(event.active.data.current.task);
+      return;
+    }
+
+
+
+
+
+
   }
 
   function onDragEnd(event) {
+    setActiveColumn(null)
+    setActiveTask(null)
+
     const { active, over } = event;
 
     if (!over) return;
@@ -114,6 +157,90 @@ const KanbanBoard = () => {
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
     });
   }
+
+  function updateColumn(id, title) {
+    const newColumns = columns.map((col) => {
+      if (col.id !== id) return col;
+      return { ...col, title };
+    });
+    setcolumns(newColumns);
+  }
+
+  function createTask(columnId) {
+    const newTask = {
+      id: crypto.randomUUID(),
+      columnId,
+      content: `Tarea : ${tasks.length + 1}`,
+    };
+
+    setTasks([...tasks, newTask]);
+  }
+
+  // eliminar tasks
+
+  function deleteTask(id){
+
+    const newTasks=tasks.filter((task)=> task.id !== id);
+    setTasks(newTasks)
+
+
+  }
+
+
+  function updateTask(id,content){
+
+
+    
+    const newTasks=tasks.map(task=>{
+      if(task.id !== id) return task;
+
+      return {...task,content}
+
+
+     })
+
+
+     setTasks(newTasks)
+  }
+
+  function ondragover(event) {
+    const { active, over } = event;
+  
+    if (!over) return;
+  
+    const activeId = active.id;
+    const overId = over.id;
+  
+    if (activeId === overId) return;
+  
+    const isActiveTask = active.data.current?.type === "Task";
+    const isOverTask = over.data.current?.type === "Task";
+  
+    if (!isActiveTask || !isOverTask) return;
+  
+    const activeTask = tasks.find((t) => t.id === activeId);
+    const overTask = tasks.find((t) => t.id === overId);
+  
+    if (!activeTask || !overTask) return;
+  
+    if (activeTask.columnId !== overTask.columnId) {
+      const updatedTasks = tasks.map((task) => {
+        if (task.id === activeTask.id) {
+          return { ...task, columnId: overTask.columnId };
+        }
+        return task;
+      });
+  
+      setTasks(updatedTasks);
+    }
+
+    
+  }
+
+
+
+
+
 };
 
 export default KanbanBoard;
