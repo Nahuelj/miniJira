@@ -7,6 +7,26 @@ body {
  margin: 0;
  box-sizing: border-box;
  padding: 0;
- 
+ background: #F0F5F9;
 
 }
+
+::-webkit-scrollbar {
+    width: 3px; /* Ancho de la barra de desplazamiento */
+ 
+   }
+   
+   /* Estilo para el rastro de la barra de desplazamiento */
+   ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del rastro */
+   }
+   
+   /* Estilo para el controlador de la barra de desplazamiento */
+   ::-webkit-scrollbar-thumb {
+    background: #E84545; /* Color de fondo del controlador */
+   }
+   
+   /* Cambia el color del controlador cuando se pasa el cursor */
+   ::-webkit-scrollbar-thumb:hover {
+    background: #F73859; /* Color de fondo del controlador al pasar el cursor */
+   }
