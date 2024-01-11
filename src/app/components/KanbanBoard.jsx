@@ -174,6 +174,10 @@ const KanbanBoard = () => {
      setTasks(newTasks)
   }
 
+
+  function taskExistsInContainer(containerTasks, taskId) {
+    return containerTasks.some(task => task.id === taskId);
+   }
   
   function onDragEnd(event) {
     setActiveColumn(null);
@@ -203,9 +207,19 @@ const KanbanBoard = () => {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
-  
-        tasks[activeIndex].columnId = overId;
-  
+   
+        // Verificar si la tarea ya existe en el contenedor
+        /*const overTasks = tasks.filter((_, i) => i !== activeIndex);
+        if (taskExistsInContainer(overTasks, activeId)) {
+          alert('Esta tarea ya existe en este contenedor');
+          return tasks;
+        }
+   
+
+        tasks[activeIndex].columnId = overId;*/
+
+
+        
         return arrayMove(tasks, activeIndex, overIndex);
       });
     }

@@ -1,7 +1,7 @@
 "use client ";
 import React from "react";
 import Trash from "../icons/Trash";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 const TaskCard = ({ task, deleteTask, updateTask }) => {
