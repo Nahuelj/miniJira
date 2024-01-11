@@ -7,7 +7,6 @@ import { createToken } from "@/helpers/jwtHelper";
 import { cookies } from "next/headers";
 
 export async function POST(NextRequest) {
-  console.log("entrando");
   try {
     const { username, email, password } = await NextRequest.json();
     if (!username || !email || !password) {
