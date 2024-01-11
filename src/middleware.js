@@ -21,15 +21,13 @@ export default async function middleware(req) {
     req.nextUrl.pathname === "/login" ||
     req.nextUrl.pathname === "/register"
   ) {
-    if (!authCookie) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    } else {
+    if (authCookie) {
       try {
         await verifyTokenJose(authCookie);
-        return NextResponse.next();
+        return NextResponse.redirect(new URL("/", req.url));
       } catch (error) {
         console.log(error);
-        return NextResponse.redirect(new URL("/login", req.url));
+        return NextResponse.next();
       }
     }
   }
