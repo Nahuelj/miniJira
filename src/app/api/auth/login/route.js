@@ -22,7 +22,6 @@ export async function POST(NextRequest) {
     //validar password con bcrypt
 
     const compare = comparePasswords(userFoundEmail.password, password);
-    console.log(compare);
     if (!compare) {
       return res(401);
     }

@@ -1,15 +1,21 @@
 import { NextResponse } from "next/server";
-import { verifyToken } from "@/helpers/jwtHelper";
+import { verifyTokenJose } from "@/helpers/jwtHelper";
 
-export default function middleware(req) {
-  const authCookie = req.cookies.get("authorization");
-  if (req.nextUrl.pathname === "/register") {
+export default async function middleware(req) {
+  const authCookie = req.cookies.get("authorization")?.value;
+  if (req.nextUrl.pathname === "/") {
     if (!authCookie) {
       return NextResponse.redirect(new URL("/login", req.url));
     } else {
-      const result = verifyToken(authCookie.value);
-      console.log("resutl", result);
-      console.log("cookie", authCookie);
+      try {
+        await verifyTokenJose(authCookie);
+        return NextResponse.next();
+      } catch (error) {
+        console.log(error);
+        return NextResponse.redirect(new URL("/login", req.url));
+      }
     }
   }
+
+  return NextResponse.next();
 }
