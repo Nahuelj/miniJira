@@ -1,7 +1,7 @@
 "use client ";
 import React from "react";
 import Trash from "../icons/Trash";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 const TaskCard = ({ task, deleteTask, updateTask }) => {
@@ -57,7 +57,7 @@ const confirmDeleteTask = () => {
         {...listeners}
 
 
-         className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-slate-900">
+         className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#005B99] ">
           <textarea
             className="h-[90%] w-full resize-none border-none rounded bg-transparent text-white focus:outline-none"
             value={task.content}
@@ -76,7 +76,7 @@ const confirmDeleteTask = () => {
 
 
   if(isDragging){
-    return <div style={style} className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-slate-900">
+    return <div style={style} className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#de283b] opacity-5">
   
     </div>
 
@@ -96,7 +96,7 @@ const confirmDeleteTask = () => {
       onClick={toggleEditMode}
       onMouseEnter={() => setMouseIsOver(true)}
       onMouseLeave={() => setMouseIsOver(false)}
-      className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-slate-900 text-white"
+      className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#de283b]  text-white"
     >
       <h2 className="my-auto  w-full overflow-y-auto overflow-x-auto whitespace-pre-wrap ">
         {" "}

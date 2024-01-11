@@ -48,7 +48,7 @@ const ColumnaContainer = (props) => {
       <div
         ref={setNodeRef}
         style={style}
-        className="w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col bg-slate-700 opacity-40 border-rose-500 border-4"
+        className="w-[350px] h-[500px]  max-h-[500px] rounded-md flex flex-col bg-slate-700 border-rose-300 border-4"
       >
         {" "}
       </div>
@@ -59,13 +59,11 @@ const ColumnaContainer = (props) => {
     <div
       ref={setNodeRef}
       style={style}
-      className="w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col bg-slate-700 "
+      className="w-[350px] h-[500px] max-h-[500px] rounded-md flex flex-col bg-[#F0F5F9] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border  "
     >
       <div className="flex   ">
-        <div className="text-md  w-full flex h-[60px] cursor-grab rounded-md rounded-b-none p-3 font-bold border-4 bg-slate-200">
-          <div>
-            <p>0</p>
-          </div>
+        <div className="text-md justify-between items-center w-full flex h-[60px] cursor-grab rounded-md rounded-b-none p-3 font-bold border-4 bg-[#322f3e] text-white ">
+        
 
           <div
             {...attributes}
@@ -73,13 +71,13 @@ const ColumnaContainer = (props) => {
             onClick={() => {
               setEditMode(true);
             }}
-            className="flex justify-center w-full"
+            className="text-sm w-full"
           >
             {!editMode && column.title}
 
             {editMode && (
               <input
-                className=" focus:border-rose-500 border rounded outline-none px-2"
+                className=" text-black w-full border rounded outline-none px-2"
                 value={column.title}
                 onChange={(e) => updateColumn(column.id, e.target.value)}
                 autoFocus
@@ -99,28 +97,30 @@ const ColumnaContainer = (props) => {
               <Trash />
             </button>
           </div>
+
         </div>
+
       </div>
 
       <div className="flex text-white flex-col flex-grow gap-4 p-2 overflow-x-hidden overflow-y-auto">
-      <SortableContext items={tasks.map((task) => task.id)}>
-    {tasks.map((task) => (
-      <TaskCard
-        key={task.id}
-        task={task}
-        deleteTask={deleteTask}
-        updateTask={updateTask}
-      />
-    ))}
-  </SortableContext>
+        <SortableContext items={tasks.map((task) => task.id)}>
+          {tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              updateTask={updateTask}
+            />
+          ))}
+        </SortableContext>
       </div>
 
       <button
         onClick={() => createTask(column.id)}
-        className="flex gap-2 items-center text-white hover:text-green-300"
+        className="flex p-2  items-center text-sm hover:text-[#272343]  text-[#1E2022] "
       >
         <PlusIcon />
-        Add Tasks
+        Añadir Tarea
       </button>
     </div>
   );
