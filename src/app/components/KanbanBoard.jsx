@@ -222,6 +222,7 @@ const KanbanBoard = () => {
         
         return arrayMove(tasks, activeIndex, overIndex);
       });
+      
     }
   }
   
