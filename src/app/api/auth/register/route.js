@@ -1,5 +1,5 @@
 import { res } from "@/helpers/nextResponses";
-import { connectDB } from "@/DB/connection";
+import { connectDB, closeConectionDB } from "@/DB/connection";
 import { UserModel } from "@/DB/models/UserModel";
 import { hashPassword } from "@/helpers/bcryptHelpers";
 import { UserValidation } from "@/helpers/validationZod";
@@ -53,5 +53,7 @@ export async function POST(NextRequest) {
   } catch (error) {
     console.log(error);
     return res(500);
+  } finally {
+    await closeConectionDB();
   }
 }

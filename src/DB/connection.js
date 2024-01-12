@@ -8,3 +8,12 @@ export async function connectDB() {
     console.error("Could not connect to MongoDB Atlas: ", err);
   }
 }
+
+export async function closeConectionDB() {
+  try {
+    await mongoose.connection.close();
+    console.log("Connection to MongoDB closed");
+  } catch (error) {
+    console.error("Error closing connection:", error);
+  }
+}
