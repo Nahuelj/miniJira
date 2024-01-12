@@ -43,3 +43,7 @@ export function res(statusCode = 200, messageJsonObject = {}) {
       );
   }
 }
+
+export function resData(dataName, data) {
+  return NextResponse.json({ [dataName]: data }, { status: 200 });
+}

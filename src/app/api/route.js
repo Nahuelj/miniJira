@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { res } from "@/helpers/nextResponses";
 
 export async function GET() {
   return res.json("hola mundo");
