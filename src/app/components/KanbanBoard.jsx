@@ -42,7 +42,7 @@ const KanbanBoard = () => {
         onDragOver={ondragover}
         
       >
-        <div className="mx-auto   flex-wrap flex gap-2">
+        <div className="mx-auto   flex-wrap   flex gap-2">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
               {columns.map((column) => (
@@ -63,7 +63,7 @@ const KanbanBoard = () => {
 
           <button
             onClick={createNewColumn}
-            className="h-[60px] w[350px] flex gap-2 min-w-[350px] cursor-pointer rounded-lg border-2 p-4 "
+            className="h-[60px] bg-[#0E0E0E] text-white  w[350px] flex gap-2 min-w-[350px] cursor-pointer rounded-lg border-2 p-4 "
           >
             <PlusIcon /> Añadir Columna
           </button>

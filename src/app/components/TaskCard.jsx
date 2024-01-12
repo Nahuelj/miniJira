@@ -76,7 +76,7 @@ const confirmDeleteTask = () => {
 
 
   if(isDragging){
-    return <div style={style} className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#de283b] opacity-5">
+    return <div style={style} className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#0E0E0E] opacity-5">
   
     </div>
 
@@ -96,7 +96,7 @@ const confirmDeleteTask = () => {
       onClick={toggleEditMode}
       onMouseEnter={() => setMouseIsOver(true)}
       onMouseLeave={() => setMouseIsOver(false)}
-      className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#de283b]  text-white"
+      className="p-5 h-[70px] min-h-[40px] items-center flex text-left rounded-xl hover:ring-2 hover:ring-inset cursor-grab  relative bg-[#F73859]  text-white"
     >
       <h2 className="my-auto  w-full overflow-y-auto overflow-x-auto whitespace-pre-wrap ">
         {" "}

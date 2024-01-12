@@ -3,26 +3,21 @@ import React from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
+
 import EquipoIcons from "../icons/EquipoIcons";
 
 import noAvatar from "../../../public/noAvatar.png";
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+
 import Image from "next/image";
 import HelpIcons from "../icons/HelpIcons";
 
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
-import styled from "styled-components";
+
 import SettingIcons from "../icons/SettingIcons";
 import BoardIcon from "../icons/HomeIcons";
 import NotificationIcons from "../icons/NotificationIcons";
 
 const Nav = () => {
-  const Cs = styled.p`
-    background-color: blue;
-    color: white;
-  `;
+
 
   return (
     <div className="">
