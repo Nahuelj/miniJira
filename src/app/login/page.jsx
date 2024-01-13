@@ -62,8 +62,8 @@ function MyFormLogin() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
             </span>
         </div>
-        <h2 className="text-2xl font-semibold text-center mb-4 text-white">Create a new account</h2>
-        <p className="text-white text-center mb-6">Enter your details to register.</p>
+        <h2 className="text-2xl font-semibold text-center mb-4 text-white">Login</h2>
+        <p className="text-white text-center mb-6">   Ingresa tus datos para loguearte..</p>
         <form onSubmit={handleSubmit}>
       
             <div className="mb-4">

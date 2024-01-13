@@ -76,10 +76,9 @@ function MyFormRegister() {
             </span>
           </div>
           <h2 className="text-2xl font-semibold text-center mb-4 text-white">
-            Create a new account
-          </h2>
+Crear Cuenta          </h2>
           <p className="text-white text-center mb-6">
-            Enter your details to register.
+          Ingresa tus datos para registrarte.
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
