@@ -18,7 +18,12 @@ const KanbanBoard = () => {
   const [columns, setcolumns] = useState([]);
   const [activeColumn, setActiveColumn] = useState(null);
 
+
+
+
   const [tasks, setTasks] = useState([]);
+
+  
 
  const [activeTask, setActiveTask] = useState(null)
   const sensors = useSensors(
