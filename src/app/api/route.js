@@ -1,5 +1,5 @@
 import { res } from "@/helpers/nextResponses";
 
 export async function GET() {
-  return res.json("hola mundo");
+  return res(200, "hola api");
 }

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { verifyTokenJose, createToken } from "@/helpers/jwtHelper";
 import { res } from "@/helpers/nextResponses";
+import { NextResponse } from "next/server";
 
 export async function setCookieJwt(payload) {
   cookies().set({
