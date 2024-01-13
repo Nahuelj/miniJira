@@ -18,6 +18,7 @@ const ColumnSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  index: Number,
 });
 
 export const ColumnModel =

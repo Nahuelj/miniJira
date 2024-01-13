@@ -14,6 +14,7 @@ const BoardSchema = new mongoose.Schema(
       ref: "User",
     },
     background: { type: String, default: null },
+    index: Number,
   },
   { timestamps: true }
 );
