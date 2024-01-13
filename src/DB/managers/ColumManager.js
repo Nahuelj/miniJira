@@ -1,3 +1,5 @@
+import { ColumnModel } from "@/DB/models/ColumnModel";
+
 class ColumnManager {
   async createColumn(name, maker, owner, index) {
     try {

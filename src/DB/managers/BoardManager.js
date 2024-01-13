@@ -1,4 +1,5 @@
 import { ColumnModel } from "@/DB/models/ColumnModel";
+import { BoardModel } from "@/DB/models/BoardModel";
 
 class BoardManager {
   async createBoard(name, owner, index) {

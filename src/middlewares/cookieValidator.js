@@ -1,8 +1,8 @@
 import { verifyTokenJose } from "@/helpers/jwtHelper";
 import { NextResponse } from "next/server";
 
-export async function cookieJwtValidatorRoute(req) {
-  console.log("hola como estan");
+// Define the new middleware function
+export async function cookieValidationApi(req) {
   if (
     req.nextUrl.pathname.startsWith("/api/boards") ||
     req.nextUrl.pathname.startsWith("/api/tasks") ||
@@ -20,4 +20,6 @@ export async function cookieJwtValidatorRoute(req) {
       }
     }
   }
+
+  return NextResponse.next();
 }

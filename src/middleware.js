@@ -2,7 +2,7 @@ import { authMiddleware } from "@/middlewares/auth";
 import { boardMiddleware } from "@/middlewares/board";
 import { loginAndRegisterMiddleware } from "@/middlewares/loginAndRegister";
 import { NextResponse } from "next/server";
-import { cookieJwtValidatorRoute } from "@/middlewares/cookieValidator";
+import { cookieValidationApi } from "@/middlewares/cookieValidator";
 
 export default async function middleware(req) {
   const response = await authMiddleware(req);
@@ -14,9 +14,9 @@ export default async function middleware(req) {
   const response3 = await loginAndRegisterMiddleware(req);
   if (response3) return response3;
 
-  //TERMINAR ESTO
-  const response4 = await cookieJwtValidatorRoute(req);
-  if (response4) return response3;
+  // Extract the last middleware logic into a separate function
+  const response4 = await cookieValidationApi(req);
+  if (response4) return response4;
 
   return NextResponse.next();
 }
