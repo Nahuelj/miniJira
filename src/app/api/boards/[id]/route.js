@@ -1,6 +1,6 @@
 import { res, resData } from "@/helpers/nextResponses";
-import { taskManager } from "@/DB/managers/TaskManager";
-import { connectDB, closeConectionDB } from "@/DB/connection";
+import { boardManager } from "@/DB/managers/BoardManager";
+import { connectDB } from "@/DB/connection";
 import mongoose from "mongoose";
 import { finallyCloseConnection } from "@/helpers/finallyCloseConnection";
 
@@ -15,11 +15,11 @@ export async function GET(req, { params }) {
     }
 
     await connectDB();
-    const task = await taskManager.getTaskById(id);
-    if (!task) {
+    const board = await boardManager.getBoardById(id);
+    if (!board) {
       return res(404);
     }
-    return resData("task", task);
+    return resData("board", board);
   } catch (error) {
     console.log(error);
     return res(500);
@@ -36,22 +36,22 @@ export async function PUT(req, { params }) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res(400);
     }
-    const { description, creator, owner, assigned, finishBy, index } =
-      await req.json();
+    const { name, columns, owner, background, index } = await req.json();
     await connectDB();
-    const task = await taskManager.getTaskById(id);
-    if (!task) {
-      return res(404);
-    }
-    const taskUpdated = await taskManager.updateTask(id, {
-      description,
-      creator,
+
+    const boardUpdated = await boardManager.updateBoard(id, {
+      name,
+      columns,
       owner,
-      assigned,
-      finishBy,
+      background,
       index,
     });
-    return resData("taskUpdated", taskUpdated);
+
+    if (!boardUpdated) {
+      return res(404);
+    }
+
+    return resData("boardUpdated", boardUpdated);
   } catch (error) {
     console.log(error);
     return res(500);
@@ -69,12 +69,12 @@ export async function DELETE(req, { params }) {
       return res(400);
     }
     await connectDB();
-    const task = await taskManager.getTaskById(id);
-    if (!task) {
+
+    const boardDeleted = await boardManager.deleteBoard(id);
+
+    if (!boardDeleted) {
       return res(404);
     }
-
-    await taskManager.deleteTask(id);
 
     return res(200);
   } catch (error) {

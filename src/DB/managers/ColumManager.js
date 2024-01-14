@@ -1,12 +1,12 @@
 import { ColumnModel } from "@/DB/models/ColumnModel";
 
 class ColumnManager {
-  async createColumn(name, maker, owner, index) {
+  async createColumn(name, creator, owner, index) {
     try {
       const newColumn = new ColumnModel({
         name,
         tasks: [],
-        maker,
+        creator,
         owner,
         index,
       });

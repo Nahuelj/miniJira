@@ -1,6 +1,7 @@
 import { res, resData } from "@/helpers/nextResponses";
 import { taskManager } from "@/DB/managers/TaskManager";
-import { closeConectionDB, connectDB } from "@/DB/connection";
+import { connectDB } from "@/DB/connection";
+import { finallyCloseConnection } from "@/helpers/finallyCloseConnection";
 
 export async function POST(req) {
   try {
@@ -17,12 +18,7 @@ export async function POST(req) {
     console.log(error);
     return res(500);
   } finally {
-    try {
-      await closeConectionDB();
-    } catch (error) {
-      console.log(error);
-      return res(500);
-    }
+    await finallyCloseConnection();
   }
 }
 //OBTENER TODAS
@@ -35,11 +31,6 @@ export async function GET() {
     console.log(error);
     return res(500);
   } finally {
-    try {
-      await closeConectionDB();
-    } catch (error) {
-      console.log(error);
-      return res(500);
-    }
+    await finallyCloseConnection();
   }
 }
