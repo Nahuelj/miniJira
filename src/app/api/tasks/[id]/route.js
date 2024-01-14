@@ -71,18 +71,21 @@ export async function PUT(req, { params }) {
 
 //BORRAR POR ID
 
-export async function DELETE() {
+export async function DELETE(req, { params }) {
   try {
     const { id } = params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res(400);
+    }
     await connectDB();
     const task = await taskManager.getTaskById(id);
     if (!task) {
       return res(404);
     }
 
-    const taskDeleted = await taskManager.deleteTask(id);
+    await taskManager.deleteTask(id);
 
-    return resData("taskDeleted", taskDeleted);
+    return res(200);
   } catch (error) {
     console.log(error);
     return res(500);
