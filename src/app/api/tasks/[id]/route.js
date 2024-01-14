@@ -1,12 +1,18 @@
 import { res, resData } from "@/helpers/nextResponses";
 import { taskManager } from "@/DB/managers/TaskManager";
 import { connectDB, closeConectionDB } from "@/DB/connection";
+import mongoose from "mongoose";
 
 //OBTENER POR ID
 
-export async function GET({ params }) {
+export async function GET(req, { params }) {
   try {
     const { id } = params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res(400);
+    }
+
     await connectDB();
     const task = await taskManager.getTaskById(id);
     if (!task) {
@@ -30,9 +36,12 @@ export async function GET({ params }) {
 
 export async function PUT(req, { params }) {
   try {
+    const { id } = params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res(400);
+    }
     const { description, creator, owner, assigned, finishBy, index } =
       await req.json();
-    const { id } = params;
     await connectDB();
     const task = await taskManager.getTaskById(id);
     if (!task) {
@@ -63,5 +72,26 @@ export async function PUT(req, { params }) {
 //BORRAR POR ID
 
 export async function DELETE() {
-  return res.json("hola mundo");
+  try {
+    const { id } = params;
+    await connectDB();
+    const task = await taskManager.getTaskById(id);
+    if (!task) {
+      return res(404);
+    }
+
+    const taskDeleted = await taskManager.deleteTask(id);
+
+    return resData("taskDeleted", taskDeleted);
+  } catch (error) {
+    console.log(error);
+    return res(500);
+  } finally {
+    try {
+      await closeConectionDB();
+    } catch (error) {
+      console.log(error);
+      return res(500);
+    }
+  }
 }
