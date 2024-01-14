@@ -5,6 +5,7 @@ import { closeConectionDB, connectDB } from "@/DB/connection";
 export async function POST(req) {
   try {
     const { description, creator, owner } = await req.json();
+
     if (!description || !creator || !owner) {
       return res(400);
     }
