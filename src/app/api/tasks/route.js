@@ -16,11 +16,16 @@ export async function POST(req) {
     console.log(error);
     return res(500);
   } finally {
-    await closeConectionDB();
+    try {
+      await closeConectionDB();
+    } catch (error) {
+      console.log(error);
+      return res(500);
+    }
   }
 }
 //OBTENER TODAS
-export async function GET(req) {
+export async function GET() {
   try {
     await connectDB();
     const tasks = await taskManager.getAllTasks();
@@ -29,6 +34,11 @@ export async function GET(req) {
     console.log(error);
     return res(500);
   } finally {
-    await closeConectionDB();
+    try {
+      await closeConectionDB();
+    } catch (error) {
+      console.log(error);
+      return res(500);
+    }
   }
 }
