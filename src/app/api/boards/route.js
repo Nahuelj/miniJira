@@ -7,16 +7,16 @@ export async function POST(req) {
   try {
     const { name, columns, owner, background, index } = await req.json();
 
-    if (!name || !columns || !owner) {
+    if (!name || !owner) {
       return res(400);
     }
     await connectDB();
     const newBoard = await boardManager.createBoard(
       name,
-      columns,
       owner,
       background,
-      index
+      index,
+      columns
     );
 
     return resData("newBoard", newBoard);

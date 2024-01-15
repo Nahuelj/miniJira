@@ -5,13 +5,18 @@ import { finallyCloseConnection } from "@/helpers/finallyCloseConnection";
 
 export async function POST(req) {
   try {
-    const { name, creator, owner } = await req.json();
+    const { name, creator, owner, index } = await req.json();
 
     if (!name || !creator || !owner) {
       return res(400);
     }
     await connectDB();
-    const newColumn = await columnManager.createColumn(name, creator, owner);
+    const newColumn = await columnManager.createColumn(
+      name,
+      creator,
+      owner,
+      index
+    );
 
     return resData("newColumn", newColumn);
   } catch (error) {

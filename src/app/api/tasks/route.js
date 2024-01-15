@@ -11,6 +11,7 @@ export async function POST(req) {
       return res(400);
     }
     await connectDB();
+
     const newTask = await taskManager.createTask(description, creator, owner);
 
     return resData("newTask", newTask);
