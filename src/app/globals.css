@@ -9,6 +9,7 @@ body {
  box-sizing: border-box;
  padding: 0;
  background: #F0F5F9;
+<<<<<<< HEAD
 }
 
 
@@ -22,4 +23,6 @@ height: 12px;
 
 ::-webkit-scrollbar-thumb{
     @apply bg-slate-500 rounded-xl
+=======
+>>>>>>> prueba-react-beautiful
 }
