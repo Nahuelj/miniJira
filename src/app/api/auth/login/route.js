@@ -38,6 +38,11 @@ export async function POST(NextRequest) {
     console.log(error);
     return res(500);
   } finally {
-    await closeConectionDB();
+    try {
+      await closeConectionDB();
+    } catch (error) {
+      console.log(error);
+      return res(500);
+    }
   }
 }

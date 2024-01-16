@@ -15,7 +15,7 @@ class TaskManager {
     finishBy = null
   ) {
     try {
-      const newTask = new TaskModel({
+      const newTask = await new TaskModel({
         description,
         creator,
         owner,

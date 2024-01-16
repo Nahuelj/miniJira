@@ -2,13 +2,14 @@ import { ColumnModel } from "@/DB/models/ColumnModel";
 import { BoardModel } from "@/DB/models/BoardModel";
 
 class BoardManager {
-  async createBoard(name, owner, index) {
+  async createBoard(name, owner, background, index, columns = []) {
     try {
       const newBoard = new BoardModel({
         name,
-        columns: [],
+        columns,
         owner,
         index,
+        background,
       });
       const savedBoard = await newBoard.save();
       return savedBoard;

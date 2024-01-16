@@ -12,9 +12,13 @@ const BoardSchema = new mongoose.Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     background: { type: String, default: null },
-    index: Number,
+    index: {
+      type: Number,
+      default: null,
+    },
   },
   { timestamps: true }
 );

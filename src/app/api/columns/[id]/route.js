@@ -1,5 +1,5 @@
 import { res, resData } from "@/helpers/nextResponses";
-import { taskManager } from "@/DB/managers/TaskManager";
+import { columnManager } from "@/DB/managers/ColumManager";
 import { connectDB, closeConectionDB } from "@/DB/connection";
 import mongoose from "mongoose";
 import { finallyCloseConnection } from "@/helpers/finallyCloseConnection";
@@ -15,11 +15,11 @@ export async function GET(req, { params }) {
     }
 
     await connectDB();
-    const task = await taskManager.getTaskById(id);
-    if (!task) {
+    const column = await columnManager.getColumnById(id);
+    if (!column) {
       return res(404);
     }
-    return resData("task", task);
+    return resData("column", column);
   } catch (error) {
     console.log(error);
     return res(500);
@@ -36,22 +36,21 @@ export async function PUT(req, { params }) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res(400);
     }
-    const { description, creator, owner, assigned, finishBy, index } =
-      await req.json();
+    const { name, tasks, creator, owner, index } = await req.json();
     await connectDB();
-    const task = await taskManager.getTaskById(id);
-    if (!task) {
-      return res(404);
-    }
-    const taskUpdated = await taskManager.updateTask(id, {
-      description,
+
+    const columnUpdated = await columnManager.updateColumn(id, {
+      name,
+      tasks,
       creator,
       owner,
-      assigned,
-      finishBy,
       index,
     });
-    return resData("taskUpdated", taskUpdated);
+
+    if (!columnUpdated) {
+      return res(404);
+    }
+    return resData("columnUpdated", columnUpdated);
   } catch (error) {
     console.log(error);
     return res(500);
@@ -65,20 +64,21 @@ export async function PUT(req, { params }) {
 export async function DELETE(req, { params }) {
   try {
     const { id } = params;
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res(400);
     }
+
     await connectDB();
-    const task = await taskManager.getTaskById(id);
-    if (!task) {
+    const column = await columnManager.deleteColumn(id);
+
+    if (!column) {
       return res(404);
     }
 
-    await taskManager.deleteTask(id);
-
     return res(200);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res(500);
   } finally {
     await finallyCloseConnection();
