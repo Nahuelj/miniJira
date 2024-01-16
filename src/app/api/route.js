@@ -1,5 +1,3 @@
-import { res } from "@/helpers/nextResponses";
-
 export async function GET() {
-  return res(200, "hola api");
+  return Response.json("hola api response", { status: 202 });
 }
