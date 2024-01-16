@@ -5,6 +5,7 @@ import { hashPassword } from "@/helpers/bcryptHelpers";
 import { UserValidation } from "@/helpers/validationZod";
 import { createToken } from "@/helpers/jwtHelper";
 import { cookies } from "next/headers";
+import { generateAvatarUrl } from "@/helpers/generateAvatar";
 
 export async function POST(NextRequest) {
   try {
@@ -12,6 +13,7 @@ export async function POST(NextRequest) {
     if (!username || !email || !password) {
       return res(400);
     }
+    const urlAvatar = generateAvatarUrl(username);
 
     // Datos de entrada del formulario
     const formInput = {
@@ -39,6 +41,7 @@ export async function POST(NextRequest) {
       email: email,
       password: hash,
       theme: "white",
+      userPhoto: urlAvatar,
     });
     await newUser.save();
 
