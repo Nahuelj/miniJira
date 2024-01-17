@@ -8,10 +8,13 @@ export async function GET(req) {
     const authCookie = req.cookies.get("authorization")?.value;
     const { payload } = await verifyTokenJose(authCookie);
     await connectDB();
-    const userCurrent = await UserModel.findById(payload.id).populate({
-      path: "boards",
-      select: "name _id owner", // Aquí especificas los campos que deseas poblar de la colección Board
-    });
+    const userCurrent = await UserModel.findById(payload.id)
+      .populate({
+        path: "boards",
+        select: "name _id owner", // Aquí especificas los campos que deseas poblar de la colección Board
+      })
+      .lean();
+
     const dto = {
       _id: userCurrent._id,
       username: userCurrent.username,
@@ -22,6 +25,7 @@ export async function GET(req) {
     };
     return resData("userCurrent", dto);
   } catch (error) {
+    console.log(error);
     return res(500);
   }
 }

@@ -20,10 +20,10 @@ const Nav = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="overflow-hidden h-screen bg-black">
       <Sidebar
-        backgroundColor="#0E0E0E"
-        className="text-white h-screen"
+        backgroundColor="black"
+        className="text-white fixed top-14 right-0"
         style={{ left: "auto", right: 0 }}
       >
         <div className="flex items-center mt-5 justify-center  gap-2 max-w-52 mx-auto ">
@@ -40,10 +40,10 @@ const Nav = () => {
         </div>
 
         <Menu
-          className="h-full   "
+          className="h-full"
           menuItemStyles={{
             button: {
-              backgroundColor: "#0E0E0E", // Color de fondo cuando no se pasa el cursor
+              backgroundColor: "black", // Color de fondo cuando no se pasa el cursor
               "&:hover": {
                 backgroundColor: "#F73859",
               },

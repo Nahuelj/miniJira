@@ -5,7 +5,7 @@ import IconTeam from "@/app/icons/EquipoIcons";
 
 export const NavBarSup = () => {
   return (
-    <nav className="fixed top-0 w-full h-14 bg-black text-white flex items-center justify-between">
+    <nav className="fixed top-0 w-full h-14 bg-black text-white flex items-center justify-between z-10">
       <div className="flex justify-center items-center gap-10 ml-3">
         <div className="flex justify-center items-center gap-2">
           <Img className="h-6 w-6 rounded-sm" src={iconTrello} alt="icon" />

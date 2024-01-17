@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="flex">
       <NavBarSup />
-      {/* <Nav /> */}
+      <Nav />
     </div>
   );
 }
