@@ -37,7 +37,9 @@ const Nav = () => {
         <div className="flex items-center mt-5 justify-center  gap-2 max-w-52 mx-auto ">
           <div>
             <img className="w-20 h-20 rounded-sm mb-2" src={avatar} alt="" />
-            <p className="text-center">{user.username}</p>
+            <p className="text-center mb-3 text-xl font-semibold mt-3">
+              {user.username}
+            </p>
           </div>
         </div>
 

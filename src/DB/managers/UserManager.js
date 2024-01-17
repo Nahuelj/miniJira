@@ -85,10 +85,12 @@ class UserManager {
         throw new Error("Board is already added to the user");
       }
 
-      // Agregar el ID del tablero a la lista de tableros del usuario
+      if (board.owner.toString() !== user._id.toString()) {
+        // Agregar el ID del tablero a la lista de tableros del usuario
+        throw new Error("The user does not have permissions to add this board");
+      }
       user.boards.push(boardId);
       await user.save();
-
       return user;
     } catch (error) {
       throw new Error(`Error adding board to user: ${error.message}`);
