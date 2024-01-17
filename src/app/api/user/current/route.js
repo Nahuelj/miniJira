@@ -4,12 +4,14 @@ import { UserModel } from "@/DB/models/UserModel";
 import { res, resData } from "@/helpers/nextResponses";
 
 export async function GET(req) {
-  const authCookie = req.cookies.get("authorization")?.value;
-
   try {
+    const authCookie = req.cookies.get("authorization")?.value;
     const { payload } = await verifyTokenJose(authCookie);
     await connectDB();
-    const userCurrent = await UserModel.findById(payload.id);
+    const userCurrent = await UserModel.findById(payload.id).populate({
+      path: "boards",
+      select: "name _id owner", // Aquí especificas los campos que deseas poblar de la colección Board
+    });
     const dto = {
       _id: userCurrent._id,
       username: userCurrent.username,
