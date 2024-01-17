@@ -19,6 +19,7 @@ const BoardSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
+    team: [{ type: mongoose.Schema.Types.ObjectId, ref: "Board", default: [] }],
   },
   { timestamps: true }
 );

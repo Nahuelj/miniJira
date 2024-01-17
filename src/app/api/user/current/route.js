@@ -16,7 +16,6 @@ export async function GET(req) {
       email: userCurrent.email,
       boards: userCurrent.boards,
       theme: userCurrent.theme,
-      userPhoto: userCurrent.userPhoto,
     };
     return resData("userCurrent", dto);
   } catch (error) {
