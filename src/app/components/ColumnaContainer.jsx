@@ -12,11 +12,14 @@ const ColumnaContainer = (props) => {
     deleteColumn,
     updateColumn,
     createTask,
+   
     tasks,
     deleteTask,
     updateTask,
   } = props;
   const [editMode, setEditMode] = useState(false);
+  const [mode, setMode] = useState(true);
+  const [inputValue, setInputValue] = useState("");
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
@@ -55,6 +58,22 @@ const ColumnaContainer = (props) => {
     );
   }
 
+
+  
+  const addTasks=(e)=>{
+    e.preventDefault();
+   
+ 
+    if(inputValue.trim() === '' ){
+      alert('Campo Vacio')
+      e.preventDefault()
+    } else{
+      
+      createTask(column.id,inputValue)
+      setMode(!mode);
+    }
+  setInputValue('')
+  }
   return (
     <div
       ref={setNodeRef}
@@ -63,8 +82,6 @@ const ColumnaContainer = (props) => {
     >
       <div className="flex   ">
         <div className="text-md justify-between items-center w-full flex h-[60px] cursor-grab rounded-md rounded-b-none p-3 font-bold border-4 bg-[#322f3e] text-white ">
-        
-
           <div
             {...attributes}
             {...listeners}
@@ -97,11 +114,8 @@ const ColumnaContainer = (props) => {
               <Trash />
             </button>
           </div>
-
         </div>
-
       </div>
-
       <div className="flex text-white flex-col flex-grow gap-4 p-2 overflow-x-hidden overflow-y-auto">
         <SortableContext items={tasks.map((task) => task.id)}>
           {tasks.map((task) => (
@@ -114,14 +128,37 @@ const ColumnaContainer = (props) => {
           ))}
         </SortableContext>
       </div>
-
+      {!mode ? (
+      <div className=" ">
+        <form className=" bg-red-50  w-full  mx-auto ">
+          <textarea
+            className="py-3 w-full px-5 block border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+            type="text"
+            placeholder="Introduzca el titulo de la tarea"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button
+            className="p-3 text-white bg-green-600 block w-full"
+            onClick={(e) => addTasks(e)}
+          >
+            Añadir Tarea
+          </button>
+        </form>
+      </div>
+      ) :
       <button
-        onClick={() => createTask(column.id)}
+        onClick={() => setMode(!mode)}
+      
         className="flex p-2  items-center text-sm hover:text-[#272343]  text-[#1E2022] "
       >
         <PlusIcon />
         Añadir Tarea
-      </button>
+      </button>}
+
+
+
+
     </div>
   );
 };

@@ -62,7 +62,7 @@ const confirmDeleteTask = () => {
             className="h-[90%] w-full resize-none border-none rounded bg-transparent text-white focus:outline-none"
             value={task.content}
             autoFocus
-            placeholder="Task Content Here"
+            placeholder="Editando..."
             onBlur={toggleEditMode}
             onKeyDown={(e) => {
               if (e.key === "Enter") toggleEditMode();
