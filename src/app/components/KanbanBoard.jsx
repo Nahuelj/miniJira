@@ -159,7 +159,7 @@ const KanbanBoard = () => {
     setcolumns([...columns, columnToAdd]);
 
 
-    axios.post(`/api/columns]`, columnToAdd)
+    axios.post(`/api/columns`, columnToAdd)
     .then(response => {
       if (response.status === 200) {
         console.log(response.data)
